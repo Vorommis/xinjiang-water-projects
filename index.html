@@ -68,52 +68,52 @@ tr:hover{background:#f8fafc}
 <script>
 var D=JSON.parse(document.getElementById("data").textContent);
 (function(){
-var rs={{}},cs={{}},ts={{}};
-D.forEach(function(d){{rs[d["地州"]]=1;cs[d["分类号"]]=1;ts[d["项目类型"]]=1}});
+var rs={},cs={},ts={};
+D.forEach(function(d){rs[d["地州"]]=1;cs[d["分类号"]]=1;ts[d["项目类型"]]=1});
 var re=document.getElementById("rg"),ce=document.getElementById("ct"),te=document.getElementById("tp");
-Object.keys(rs).sort().forEach(function(k){{if(k!=="-"){{var o=document.createElement("option");o.value=k;o.textContent=k;re.appendChild(o)}}}});
-Object.keys(cs).sort().forEach(function(k){{if(k!=="-"){{var o=document.createElement("option");o.value=k;o.textContent=k;ce.appendChild(o)}}}});
-Object.keys(ts).sort().forEach(function(k){{if(k&&k!=="-"){{var o=document.createElement("option");o.value=k;o.textContent=k;te.appendChild(o)}}}});
+Object.keys(rs).sort().forEach(function(k){if(k!=="-"){var o=document.createElement("option");o.value=k;o.textContent=k;re.appendChild(o)}});
+Object.keys(cs).sort().forEach(function(k){if(k!=="-"){var o=document.createElement("option");o.value=k;o.textContent=k;ce.appendChild(o)}});
+Object.keys(ts).sort().forEach(function(k){if(k&&k!=="-"){var o=document.createElement("option");o.value=k;o.textContent=k;te.appendChild(o)}});
 st();f();
-}})();
-function st(){{
+})();
+function st(){
 var t=D.length,n1=0,n2=0,n3=0;
-D.forEach(function(d){{var c=d["分类号"];if(c==="纯新建")n1++;else if(c==="可研/设计阶段")n2++;else n3++}});
-var rc={{}};D.forEach(function(d){{rc[d["地州"]]=1}});
+D.forEach(function(d){var c=d["分类号"];if(c==="纯新建")n1++;else if(c==="可研/设计阶段")n2++;else n3++});
+var rc={};D.forEach(function(d){rc[d["地州"]]=1});
 document.getElementById("st").innerHTML=
 '<div class="sc"><div class="n">'+t+'</div><div class="l">总项目</div></div>'+
 '<div class="sc"><div class="n">'+n1+'</div><div class="l">纯新建</div></div>'+
 '<div class="sc"><div class="n">'+n2+'</div><div class="l">可研/设计</div></div>'+
 '<div class="sc"><div class="n">'+n3+'</div><div class="l">初步阶段</div></div>'+
 '<div class="sc"><div class="n">'+Object.keys(rc).length+'</div><div class="l">地州/师</div></div>';
-}}
+}
 var sc="id",sd=1;
-function s(col){{if(sc===col)sd=-sd;else{{sc=col;sd=1}}f()}}
-function f(){{
+function s(col){if(sc===col)sd=-sd;else{sc=col;sd=1}f()}
+function f(){
 var q=(document.getElementById("q").value||"").toLowerCase(),
 rg=document.getElementById("rg").value,
 ct=document.getElementById("ct").value,
 tp=document.getElementById("tp").value;
-var arr=D.filter(function(d){{
+var arr=D.filter(function(d){
 if(rg&&d["地州"]!==rg)return false;
 if(ct&&d["分类号"]!==ct)return false;
 if(tp&&d["项目类型"]!==tp)return false;
-if(q){{var t=(d["项目名称"]+"|"+(d["建设地点"]||"")+"|"+(d["项目法人"]||"")+"|"+(d["建设内容及规模"]||"")).toLowerCase();if(t.indexOf(q)===-1)return false}}
+if(q){var t=(d["项目名称"]+"|"+(d["建设地点"]||"")+"|"+(d["项目法人"]||"")+"|"+(d["建设内容及规模"]||"")).toLowerCase();if(t.indexOf(q)===-1)return false}
 return true;
-}});
-arr.sort(function(a,b){{var va=a[sc]||"",vb=b[sc]||"";var na=parseFloat(va),nb=parseFloat(vb);if(!isNaN(na)&&!isNaN(nb))return(na-nb)*sd;return String(va).localeCompare(String(vb))*sd}});
+});
+arr.sort(function(a,b){var va=a[sc]||"",vb=b[sc]||"";var na=parseFloat(va),nb=parseFloat(vb);if(!isNaN(na)&&!isNaN(nb))return(na-nb)*sd;return String(va).localeCompare(String(vb))*sd});
 var h="";
-arr.forEach(function(d,i){{
+arr.forEach(function(d,i){
 var c=d["分类号"]||"",tag=c==="纯新建"?'<span class="tag tn">纯新建</span>':c==="可研/设计阶段"?'<span class="tag td">可研/设计</span>':'<span class="tag te">初步阶段</span>';
-var inv=d["总投资_万元"]||"-";if(inv!=="-"){{var n=parseFloat(inv);inv=!isNaN(n)&&n>0?n>=10000?(n/10000).toFixed(1)+"亿":n.toFixed(0)+"万":"-"}}
+var inv=d["总投资_万元"]||"-";if(inv!=="-"){var n=parseFloat(inv);inv=!isNaN(n)&&n>0?n>=10000?(n/10000).toFixed(1)+"亿":n.toFixed(0)+"万":"-"}
 var stt=d["计划开工时间"]||"-";if(stt!=="-")stt=stt.replace(" 00:00:00","");
 var dn=he(d["项目名称"]),dc=he(d["建设内容及规模"]||"-"),dl=he(d["建设地点"]),do2=he(d["项目法人"]);
 h+="<tr><td>"+(i+1)+"</td><td>"+he(d["地州"])+"</td><td>"+tag+"</td><td>"+he(d["项目类型"])+"</td><td title=""+dn+"">"+dn+"</td><td title=""+dc+"">"+dc.substring(0,35)+"</td><td>"+inv+"</td><td title=""+dl+"">"+dl+"</td><td title=""+do2+"">"+do2.substring(0,18)+"</td><td>"+he(d["项目单位性质"])+"</td><td>"+he(stt)+"</td></tr>";
-}});
+});
 document.getElementById("tb").innerHTML=h;
 document.getElementById("cnt").textContent=arr.length+" / "+D.length+" 条";
-}}
-function he(s){{s=String(s||"-");return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}}
+}
+function he(s){s=String(s||"-");return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
 </script>
 </body>
 </html>
