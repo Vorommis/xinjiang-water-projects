@@ -10,7 +10,7 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:#f0f4f8;c
 .hd{background:linear-gradient(135deg,#1a5276,#2980b9);color:#fff;padding:20px 24px;text-align:center}
 .hd h1{font-size:24px;margin-bottom:4px}
 .hd p{font-size:13px;opacity:.8}
-.wrap{max-width:1400px;margin:0 auto;padding:16px}
+.wrap{max-width:1500px;margin:0 auto;padding:16px}
 .stats{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
 .sc{background:#fff;border-radius:8px;padding:14px 20px;flex:1;min-width:120px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.1)}
 .sc .n{font-size:28px;font-weight:700;color:#1a5276}
@@ -20,19 +20,29 @@ body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:#f0f4f8;c
 .bar input:focus,.bar select:focus{border-color:#2980b9}
 .bar input{flex:1;min-width:200px}
 .twrap{background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.1);overflow:auto}
-table{width:100%;border-collapse:collapse;font-size:13px;min-width:1000px}
-th{background:#f7f9fc;padding:10px 8px;text-align:center;border-bottom:2px solid #e0e0e0;font-weight:600;cursor:pointer;white-space:nowrap;user-select:none}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:1200px;table-layout:fixed}
+th{background:#f7f9fc;padding:10px 6px;text-align:center;border-bottom:2px solid #e0e0e0;font-weight:600;cursor:pointer;white-space:nowrap;user-select:none}
 th:hover{background:#eef2f7}
-td{padding:8px;border-bottom:1px solid #f0f0f0;text-align:center}
+td{padding:8px 6px;border-bottom:1px solid #f0f0f0;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 tr:hover{background:#f8fafc}
 .tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:600}
 .tn{background:#d4efdf;color:#1e8449}
 .td{background:#fdebd0;color:#b9770e}
 .te{background:#d6eaf8;color:#2471a3}
-.l{text-align:left}
 .info{font-size:12px;color:#888;padding:8px 12px}
 .ft{text-align:center;padding:20px;font-size:12px;color:#aaa}
 th .ar{font-size:10px;margin-left:4px}
+.c-id{width:50px}
+.c-region{width:120px}
+.c-classify{width:90px}
+.c-type{width:60px}
+.c-name{width:auto;text-align:left!important}
+.c-content{width:200px;text-align:left!important}
+.c-invest{width:110px}
+.c-location{width:auto;text-align:left!important}
+.c-org{width:100px;text-align:left!important}
+.c-start{width:80px}
+.td-left{text-align:left!important}
 </style>
 </head>
 <body>
@@ -50,7 +60,16 @@ th .ar{font-size:10px;margin-left:4px}
 </div>
 <div class="info" id="cnt"></div>
 <div class="twrap"><table><thead><tr>
-<th onclick="s('id')">序号</th><th onclick="s('地州')">地州</th><th onclick="s('分类号')">分类</th><th onclick="s('项目类型')">类型</th><th class="l" onclick="s('项目名称')">项目名称</th><th class="l" onclick="s('建设内容及规模')">建设内容</th><th onclick="s('总投资_万元')">总投资</th><th class="l" onclick="s('建设地点')">建设地点</th><th class="l" onclick="s('项目法人')">项目法人</th><th onclick="s('计划开工时间')">开工</th></tr></thead>
+<th class="c-id" onclick="s('id')">序号</th>
+<th class="c-region" onclick="s('地州')">地州</th>
+<th class="c-classify" onclick="s('分类号')">分类</th>
+<th class="c-type" onclick="s('项目类型')">类型</th>
+<th class="c-name" onclick="s('项目名称')">项目名称</th>
+<th class="c-content" onclick="s('建设内容及规模')">建设内容</th>
+<th class="c-invest" onclick="s('总投资_万元')">总投资</th>
+<th class="td-left" onclick="s('建设地点')">建设地点</th>
+<th class="c-org" onclick="s('项目法人')">项目法人</th>
+<th class="c-start" onclick="s('计划开工时间')">开工</th></tr></thead>
 <tbody id="tb"></tbody></table></div>
 </div>
 <div class="ft">新疆水利项目信息库 · Powered by Codex</div>
@@ -98,9 +117,10 @@ arr.sort(function(a,b){var va=a[sc]||"",vb=b[sc]||"";var na=parseFloat(va),nb=pa
 var h="";
 arr.forEach(function(d,i){
 var c=d["分类号"]||"",tag=c==="纯新建"?"<span class=\"tag tn\">纯新建</span>":c==="可研/设计阶段"?"<span class=\"tag td\">可研/设计</span>":"<span class=\"tag te\">初步阶段</span>";
-var inv=d["总投资_万元"]||"";if(inv){var n=parseFloat(inv);inv=!isNaN(n)&&n>0?n>=10000?(n/10000).toFixed(1)+"亿":n.toFixed(0)+"万":"-"}else inv="-";
+var inv=d["总投资_万元"]||"";if(inv){var n=parseFloat(inv);inv=!isNaN(n)&&n>0?n>=10000?(n/10000).toFixed(1)+"亿":"-":"-"}else inv="-";
 var stt=d["计划开工时间"]||"";
-h+="<tr><td>"+(i+1)+"</td><td>"+(d["地州"]||"")+"</td><td>"+tag+"</td><td>"+(d["项目类型"]||"")+"</td><td class=\"l\">"+he(d["项目名称"]||"")+"</td><td class=\"l\" style=\"max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap\" title=\""+he(d["建设内容及规模"]||"")+"\">"+(d["建设内容及规模"]||"").substring(0,50)+"</td><td>"+inv+"</td><td class=\"l\">"+he(d["建设地点"]||"")+"</td><td class=\"l\">"+he(d["项目法人"]||"")+"</td><td>"+stt+"</td></tr>";
+var content=(d["建设内容及规模"]||"").substring(0,40);
+h+="<tr><td>"+(i+1)+"</td><td>"+(d["地州"]||"")+"</td><td>"+tag+"</td><td>"+(d["项目类型"]||"")+"</td><td class=\"td-left\" title=\""+he(d["项目名称"]||"")+"\">"+he(d["项目名称"]||"")+"</td><td class=\"td-left\" title=\""+he(d["建设内容及规模"]||"")+"\">"+he(content)+(content.length>=40?"...":"")+"</td><td>"+inv+"</td><td class=\"td-left\" title=\""+he(d["建设地点"]||"")+"\">"+he(d["建设地点"]||"")+"</td><td class=\"td-left\" title=\""+he(d["项目法人"]||"")+"\">"+he((d["项目法人"]||"").substring(0,20))+"</td><td>"+stt+"</td></tr>";
 });
 document.getElementById("tb").innerHTML=h;
 document.getElementById("cnt").textContent="显示 "+arr.length+" / "+D.length+" 条";
