@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -117,11 +117,11 @@ return true;
 arr.sort(function(a,b){var va=a[sc]||"",vb=b[sc]||"";var na=parseFloat(va),nb=parseFloat(vb);if(!isNaN(na)&&!isNaN(nb))return(na-nb)*sd;return String(va).localeCompare(String(vb))*sd});
 var h="";
 arr.forEach(function(d,i){
-var c=d["分类号"]||"",tag=c==="纯新建"?"<span class=tag tn>纯新建</span>":c==="可研/设计阶段"?"<span class=tag td>可研/设计</span>":"<span class=tag te>初步阶段</span>";
+var c=d["分类号"]||"",tag=c==="纯新建"?"<span class="tag tn">纯新建</span>":c==="可研/设计阶段"?"<span class="tag td">可研/设计</span>":"<span class="tag te">初步阶段</span>";
 var inv=d["总投资_万元"]||"-";if(inv!=="-"){var n=parseFloat(inv);inv=!isNaN(n)&&n>0?n>=10000?(n/10000).toFixed(1)+"亿":n.toFixed(0)+"万":"-"}
 var stt=d["计划开工时间"]||"-";if(stt!=="-")stt=stt.replace(" 00:00:00","");
 function esc(s){s=String(s||"-");return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
-h+="<tr><td>"+(i+1)+"</td><td>"+esc(d["地州"])+"</td><td>"+tag+"</td><td>"+esc(d["项目类型"])+"</td><td>"+esc(d["项目名称"])+"</td><td>"+esc((d["建设内容及规模"]||"-").substring(0,35))+"</td><td>"+inv+"</td><td>"+esc(d["建设地点"])+"</td><td>"+esc((d["项目法人"]||"-").substring(0,18))+"</td><td>"+esc(d["项目单位性质"])+"</td><td>"+esc(stt)+"</td></tr>";
+h+="<tr><td>"+(i+1)+"</td><td>"+esc(d["地州"])+"</td><td>"+tag+"</td><td>"+esc(d["项目类型"])+"</td><td title=\""+esc(d["项目名称"])+"\">"+esc(d["项目名称"])+"</td><td title=\""+esc(d["建设内容及规模"])+"\">"+esc((d["建设内容及规模"]||"-").substring(0,35))+"</td><td>"+inv+"</td><td title=\""+esc(d["建设地点"])+"\">"+esc(d["建设地点"])+"</td><td title=\""+esc(d["项目法人"])+"\">"+esc((d["项目法人"]||"-").substring(0,18))+"</td><td>"+esc(d["项目单位性质"])+"</td><td>"+esc(stt)+"</td></tr>";
 });
 document.getElementById("tb").innerHTML=h;
 document.getElementById("cnt").textContent=arr.length+" / "+D.length+" 条";
