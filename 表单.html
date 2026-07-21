@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新疆水利项目 - 信息录入</title><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:#f0f4f8;color:#333}
+.hd{background:linear-gradient(135deg,#1a5276,#2980b9);color:#fff;padding:18px;text-align:center}
+.hd h1{font-size:20px}.hd p{font-size:12px;opacity:.8}
+.wrap{max-width:900px;margin:16px auto;padding:0 14px}
+.card{background:#fff;border-radius:8px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:14px}
+.card h3{color:#1a5276;margin-bottom:12px;font-size:14px;border-bottom:2px solid #e8f0f8;padding-bottom:6px}
+.row{display:flex;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.fld{flex:1;min-width:180px}
+.fld label{display:block;font-size:11px;font-weight:600;margin-bottom:2px;color:#555}
+.fld input,.fld select,.fld textarea{width:100%;padding:6px 8px;border:1px solid #ddd;border-radius:5px;font-size:12px;outline:none}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:#2980b9}
+.fld textarea{resize:vertical;min-height:45px}
+.req label::after{content:" *";color:#e74c3c}
+.btn-row{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.btn{padding:9px 16px;border:none;border-radius:5px;font-size:12px;cursor:pointer;font-weight:600}
+.btn-add{background:#2980b9;color:#fff}.btn-add:hover{background:#1a5276}
+.btn-export{background:#27ae60;color:#fff}.btn-export:hover{background:#1e8449}
+.btn-clear{background:#e74c3c;color:#fff}.btn-clear:hover{background:#c0392b}
+.btn-reset{background:#95a5a6;color:#fff}.btn-reset:hover{background:#7f8c8d}
+.tbl{width:100%;border-collapse:collapse;font-size:10px;margin-top:10px}
+.tbl th{background:#f7f9fc;padding:5px 3px;border-bottom:2px solid #e0e0e0;font-weight:600;font-size:10px}
+.tbl td{padding:4px 3px;border-bottom:1px solid #eee;text-align:center}
+.tbl .del{color:#e74c3c;cursor:pointer;font-weight:700}
+.count{font-size:11px;color:#888;margin-bottom:6px}
+</style></head><body>
+<div class="hd"><h1>新疆水利项目信息录入</h1><p>填写 -> 列表 -> 导出JSON -> 发送至邮箱：3199877676@qq.com</p></div>
+<div class="wrap">
+<div class="card"><h3>基本信息</h3>
+<div class="row"><div class="fld req"><label>项目名称</label><input type="text" id="f0"></div></div>
+<div class="row">
+<div class="fld req"><label>地州</label><select id="f1"><option value="">请选择</option>
+<option value="乌鲁木齐市">乌鲁木齐市</option>
+<option value="昌吉州">昌吉州</option>
+<option value="阿克苏地区">阿克苏地区</option>
+<option value="阿勒泰地区">阿勒泰地区</option>
+<option value="巴州">巴州</option>
+<option value="博州">博州</option>
+<option value="哈密市">哈密市</option>
+<option value="和田地区">和田地区</option>
+<option value="喀什地区">喀什地区</option>
+<option value="克拉玛依市">克拉玛依市</option>
+<option value="克州">克州</option>
+<option value="塔城地区">塔城地区</option>
+<option value="吐鲁番市">吐鲁番市</option>
+<option value="伊犁州">伊犁州</option>
+<option value="兵团一师">兵团一师</option>
+<option value="兵团二师">兵团二师</option>
+<option value="兵团三师">兵团三师</option>
+<option value="兵团四师">兵团四师</option>
+<option value="兵团五师">兵团五师</option>
+<option value="兵团六师">兵团六师</option>
+<option value="兵团七师">兵团七师</option>
+<option value="兵团八师">兵团八师</option>
+<option value="兵团九师">兵团九师</option>
+<option value="兵团十师">兵团十师</option>
+<option value="兵团十二师">兵团十二师</option>
+<option value="兵团十三师">兵团十三师</option>
+<option value="兵团十四师">兵团十四师</option>
+<option value="兵团跨区域">兵团跨区域</option>
+</select></div>
+<div class="fld req"><label>项目类型</label><select id="f2"><option value="">请选择</option><option>新建</option><option>续建</option><option>储备</option><option>改扩建</option></select></div>
+<div class="fld req"><label>分类号</label><select id="f3"><option value="">请选择</option><option>纯新建</option><option>可研/设计阶段</option><option>初步阶段</option></select></div>
+</div>
+<div class="row"><div class="fld req"><label>建设内容及规模</label><textarea id="f4" rows="2"></textarea></div></div>
+</div>
+<div class="card"><h3>投资信息</h3>
+<div class="row">
+<div class="fld"><label>总投资（万元）</label><input type="number" id="f5" step="0.01"></div>
+<div class="fld"><label>资金来源</label><input type="text" id="f6" placeholder="中央预算内/专项债/自筹"></div>
+<div class="fld"><label>政府投资（万元）</label><input type="number" id="f7" step="0.01"></div>
+</div><div class="row">
+<div class="fld"><label>其他投资（万元）</label><input type="number" id="f8" step="0.01"></div>
+<div class="fld"><label>2026预计完成投资（万元）</label><input type="number" id="f9" step="0.01"></div>
+<div class="fld"><label>2026政府投资（万元）</label><input type="number" id="f10" step="0.01"></div>
+</div><div class="row">
+<div class="fld"><label>2026其他投资（万元）</label><input type="number" id="f11" step="0.01"></div>
+</div></div>
+<div class="card"><h3>时间与地点</h3>
+<div class="row">
+<div class="fld"><label>计划开工时间</label><input type="text" id="f12" placeholder="2026-07"></div>
+<div class="fld"><label>计划竣工时间</label><input type="text" id="f13" placeholder="2028-10"></div>
+<div class="fld"><label>建设地点</label><input type="text" id="f14" placeholder="XX县XX乡"></div>
+</div><div class="row">
+<div class="fld"><label>预计招标时间</label><input type="text" id="f15" placeholder="2026年7月"></div>
+</div></div>
+<div class="card"><h3>单位信息</h3>
+<div class="row">
+<div class="fld"><label>项目法人/建设单位</label><input type="text" id="f16"></div>
+<div class="fld"><label>项目单位性质</label><select id="f17"><option value="">请选择</option><option>行政部门</option><option>事业单位</option><option>国企</option><option>民企</option></select></div>
+</div><div class="row">
+<div class="fld"><label>设计单位</label><input type="text" id="f18"></div>
+<div class="fld"><label>招标代理</label><input type="text" id="f19"></div>
+<div class="fld"><label>政府实施单位</label><input type="text" id="f20" placeholder="例：XX县发改委/水利局"></div>
+</div></div>
+<div class="card"><h3>联系人</h3>
+<div class="row">
+<div class="fld"><label>联系人及联系方式</label><input type="text" id="f21" placeholder="张三 138xxxx"></div>
+<div class="fld"><label>公共资源中心联系人</label><input type="text" id="f22"></div>
+</div></div>
+<div class="card"><h3>业主联系人</h3>
+<div class="row">
+<div class="fld"><label>决策层联系人</label><input type="text" id="f23"></div>
+<div class="fld"><label>决策层职务</label><input type="text" id="f24"></div>
+</div><div class="row">
+<div class="fld"><label>参与层联系人</label><input type="text" id="f25"></div>
+<div class="fld"><label>参与层职务</label><input type="text" id="f26"></div>
+</div><div class="row">
+<div class="fld"><label>操作层联系人</label><input type="text" id="f27"></div>
+<div class="fld"><label>操作层职务</label><input type="text" id="f28"></div>
+</div></div>
+<div class="card"><h3>商务信息</h3>
+<div class="row">
+<div class="fld"><label>项目进展情况</label><input type="text" id="f29" placeholder="可研已批复/初设编制中"></div>
+<div class="fld"><label>关键关系资源</label><input type="text" id="f30"></div>
+<div class="fld"><label>关系资源级别</label><select id="f31"><option value="">请选择</option><option>A级-决策层</option><option>B级-管理层</option><option>C级-执行层</option></select></div>
+</div><div class="row">
+<div class="fld"><label>关系资源备注</label><input type="text" id="f32"></div>
+<div class="fld"><label>主要竞争对手</label><input type="text" id="f33"></div>
+<div class="fld"><label>评标专家</label><input type="text" id="f34"></div>
+</div><div class="row">
+<div class="fld"><label>投标策略要点</label><textarea id="f35" rows="2"></textarea></div>
+</div></div>
+<div class="card"><h3>内部管理</h3>
+<div class="row">
+<div class="fld"><label>策划责任人</label><input type="text" id="f36"></div>
+<div class="fld"><label>市场经理</label><input type="text" id="f37"></div>
+<div class="fld"><label>攻关状态</label><select id="f38"><option value="">请选择</option><option>未启动</option><option>初步接触</option><option>深度跟进</option><option>投标准备</option><option>已投标</option></select></div>
+</div><div class="row">
+<div class="fld"><label>下一步行动</label><input type="text" id="f39"></div>
+<div class="fld"><label>中标概率</label><select id="f40"><option value="">请选择</option><option>高</option><option>中</option><option>低</option></select></div>
+</div></div>
+<div class="btn-row">
+<button class="btn btn-add" onclick="addProject()">+ 添加到列表</button>
+<button class="btn btn-reset" onclick="resetForm()">清空表单</button>
+</div>
+<div class="card">
+<h3>待提交列表 <span class="count" id="cnt">(0项)</span></h3>
+<button class="btn btn-export" onclick="exportJSON()" style="margin-bottom:10px">导出 JSON 文件</button>
+<button class="btn btn-clear" onclick="clearList()" style="margin-bottom:10px;margin-left:6px">清空列表</button>
+<div style="overflow:auto"><table class="tbl">
+<thead><tr><th>#</th><th>项目名称</th><th>地州</th><th>类型</th><th>总投资</th><th>法人</th><th>删除</th></tr></thead>
+<tbody id="tb"><tr><td colspan="7" style="color:#aaa">暂无项目</td></tr></tbody>
+</table></div></div></div>
+<script>
+var P=[];
+var K=["项目名称","地州","项目类型","分类号","建设内容及规模","总投资_万元","资金来源","政府投资_万元","其他投资_万元","年2026预计完成投资_万元","年2026政府投资_万元","年2026其他投资_万元","计划开工时间","计划竣工时间","建设地点","预计招标时间","项目法人","项目单位性质","设计单位","招标代理","政府实施单位","联系人及联系方式","公共资源中心联系人","业主决策层联系人","业主决策层职务","业主参与层联系人","业主参与层职务","业主操作层联系人","业主操作层职务","项目进展情况","关键关系资源","关系资源级别","关系资源备注","主要竞争对手","评标专家","投标策略要点","策划责任人","市场经理","攻关状态","下一步行动","中标概率(%)"];
+function addProject(){
+var el0=document.getElementById("f0"),el1=document.getElementById("f1"),el2=document.getElementById("f2"),el3=document.getElementById("f3");
+var nm=el0.value.trim(),rg=el1.value,tp=el2.value,cl=el3.value;
+if(!nm||!rg||!tp||!cl){alert("请填写所有必填项（*标记）");return}
+var o={};
+for(var i=0;i<K.length;i++){var e=document.getElementById("f"+i);var v=e.tagName==="SELECT"?e.value:e.value.trim();o[K[i]]=v||"-"}
+P.push(o);render();resetForm();}
+function render(){
+var tb=document.getElementById("tb");
+document.getElementById("cnt").textContent="("+P.length+"项)";
+if(P.length===0){tb.innerHTML='<tr><td colspan="7" style="color:#aaa">暂无项目</td></tr>';return}
+var h="";
+P.forEach(function(p,i){var inv=p["总投资_万元"];if(inv&&inv!=="-"){var n=parseFloat(inv);inv=!isNaN(n)&&n>0?n>=10000?(n/10000).toFixed(1)+"亿":n.toFixed(0)+"万":"-"}else inv="-";h+="<tr><td>"+(i+1)+"</td><td>"+esc(p["项目名称"].substring(0,25))+"</td><td>"+esc(p["地州"])+"</td><td>"+esc(p["项目类型"])+"</td><td>"+inv+"</td><td>"+esc((p["项目法人"]||"-").substring(0,12))+"</td><td class=del onclick=del("+i+")>X</td></tr>"});
+tb.innerHTML=h;}
+function del(i){P.splice(i,1);render()}
+function clearList(){if(confirm("确认清空？")){P=[];render()}}
+function resetForm(){for(var i=0;i<K.length;i++){var e=document.getElementById("f"+i);if(e.tagName==="SELECT")e.value="";else e.value=""}}
+function exportJSON(){if(P.length===0){alert("列表为空");return}
+var json=JSON.stringify(P,null,2);var blob=new Blob([json],{type:"application/json"});
+var a=document.createElement("a");a.href=URL.createObjectURL(blob);
+a.download="新项目导入_"+new Date().toISOString().slice(0,10)+".json";a.click();
+alert("已导出 "+P.length+" 个项目！请将JSON文件发送至邮箱：3199877676@qq.com。");}
+function esc(s){if(!s)return"-";s=String(s);return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+</script></body></html>
+
