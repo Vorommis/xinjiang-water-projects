@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -31,15 +31,15 @@ tr:hover{background:#f8fafc}
 .te{background:#d6eaf8;color:#2471a3}
 .info{font-size:10px;color:#888;padding:3px 6px}
 .ft{text-align:center;padding:12px;font-size:10px;color:#aaa}
-.c0{width:42px}
-.c1{width:80px}
-.c2{width:48px}
-.c3{width:70px}
-.c4{width:180px}
-.c5{width:150px}
-.c6{width:72px}
-.c7{width:68px}
-.c8{width:65px}
+.c0{width:38px}
+.c1{width:75px}
+.c2{width:42px}
+.c3{width:66px}
+.c4{width:280px}
+.c5{width:160px}
+.c6{width:65px}
+.c7{width:62px}
+.c8{width:60px}
 .c9{width:68px}
 .c10{width:78px}
 .c11{width:55px}
@@ -166,7 +166,7 @@ arr.forEach(function(d,i){
 var c=d["分类号"]||"",tag=c==="纯新建"?'<span class="tag tn">纯新建</span>':c==="可研/设计阶段"?'<span class="tag td">可研/设计</span>':'<span class="tag te">初步阶段</span>';
 var inv=d["总投资_万元"]||"-";if(inv!=="-"){var n=parseFloat(inv);inv=!isNaN(n)&&n>0?n>=10000?(n/10000).toFixed(1)+"亿":n.toFixed(0)+"万":"-"}
 var stt=d["计划开工时间"]||"-";if(stt!=="-")stt=stt.replace(" 00:00:00","");
-h+="<tr>"+"<td>"+(i+1)+"</td>"+"<td>"+he(d["地州"])+"</td>"+"<td>"+he(d["项目类型"])+"</td>"+"<td>"+tag+"</td>"+"<td title=\""+he(d["项目名称"]||"-")+"\">"+he((d["项目名称"]||"-").substring(0,20))+"</td>"+"<td title=\""+he(d["建设内容及规模"]||"-")+"\">"+he((d["建设内容及规模"]||"-").substring(0,20))+"</td>"+"<td>"+inv+"</td>"+"<td>"+he(d["资金来源"])+"</td>"+"<td>"+he(stt)+"</td>"+"<td>"+he(d["建设地点"])+"</td>"+"<td title=\""+he(d["项目法人"]||"-")+"\">"+he((d["项目法人"]||"-").substring(0,12))+"</td>"+"<td>"+he(d["项目单位性质"])+"</td>"+"<td title=\""+he(d["联系人及联系方式"]||"-")+"\">"+he((d["联系人及联系方式"]||"-").substring(0,12))+"</td>"+"<td>"+he(d["设计单位"])+"</td>"+"<td>"+he(d["招标代理"])+"</td>"+"<td>"+he(d["项目进展情况"])+"</td>"+"<td>"+he(d["关键关系资源"])+"</td>"+"<td>"+he(d["关系资源级别"])+"</td>"+"<td>"+he(d["关系资源备注"])+"</td>"+"<td>"+he(d["业主决策层联系人"])+"</td>"+"<td>"+he(d["业主决策层职务"])+"</td>"+"<td>"+he(d["业主参与层联系人"])+"</td>"+"<td>"+he(d["业主参与层职务"])+"</td>"+"<td>"+he(d["业主操作层联系人"])+"</td>"+"<td>"+he(d["业主操作层职务"])+"</td>"+"<td>"+he(d["政府实施单位"])+"</td>"+"<td>"+he(d["公共资源中心联系人"])+"</td>"+"<td>"+he(d["主要竞争对手"])+"</td>"+"<td>"+he(d["评标专家"])+"</td>"+"<td>"+he(d["投标策略要点"])+"</td>"+"<td>"+he(d["策划责任人"])+"</td>"+"<td>"+he(d["市场经理"])+"</td>"+"<td>"+he(d["攻关状态"])+"</td>"+"<td>"+he(d["下一步行动"])+"</td>"+"<td>"+he(d["预计招标时间"])+"</td>"+"<td>"+he(d["中标概率(%)"])+"</td>"+"<td>"+he(d["备注"])+"</td>"+"</tr>";
+h+="<tr>"+"<td>"+(i+1)+"</td>"+"<td>"+he(d["地州"])+"</td>"+"<td>"+he(d["项目类型"])+"</td>"+"<td>"+tag+"</td>"+"<td title=\""+he(d["项目名称"]||"-")+"\">"+he(d["项目名称"]||"-")+"</td>"+"<td title=\""+he(d["建设内容及规模"]||"-")+"\">"+he((d["建设内容及规模"]||"-").substring(0,20))+"</td>"+"<td>"+inv+"</td>"+"<td>"+he(d["资金来源"])+"</td>"+"<td>"+he(stt)+"</td>"+"<td>"+he(d["建设地点"])+"</td>"+"<td title=\""+he(d["项目法人"]||"-")+"\">"+he((d["项目法人"]||"-").substring(0,12))+"</td>"+"<td>"+he(d["项目单位性质"])+"</td>"+"<td title=\""+he(d["联系人及联系方式"]||"-")+"\">"+he((d["联系人及联系方式"]||"-").substring(0,12))+"</td>"+"<td>"+he(d["设计单位"])+"</td>"+"<td>"+he(d["招标代理"])+"</td>"+"<td>"+he(d["项目进展情况"])+"</td>"+"<td>"+he(d["关键关系资源"])+"</td>"+"<td>"+he(d["关系资源级别"])+"</td>"+"<td>"+he(d["关系资源备注"])+"</td>"+"<td>"+he(d["业主决策层联系人"])+"</td>"+"<td>"+he(d["业主决策层职务"])+"</td>"+"<td>"+he(d["业主参与层联系人"])+"</td>"+"<td>"+he(d["业主参与层职务"])+"</td>"+"<td>"+he(d["业主操作层联系人"])+"</td>"+"<td>"+he(d["业主操作层职务"])+"</td>"+"<td>"+he(d["政府实施单位"])+"</td>"+"<td>"+he(d["公共资源中心联系人"])+"</td>"+"<td>"+he(d["主要竞争对手"])+"</td>"+"<td>"+he(d["评标专家"])+"</td>"+"<td>"+he(d["投标策略要点"])+"</td>"+"<td>"+he(d["策划责任人"])+"</td>"+"<td>"+he(d["市场经理"])+"</td>"+"<td>"+he(d["攻关状态"])+"</td>"+"<td>"+he(d["下一步行动"])+"</td>"+"<td>"+he(d["预计招标时间"])+"</td>"+"<td>"+he(d["中标概率(%)"])+"</td>"+"<td>"+he(d["备注"])+"</td>"+"</tr>";
 });
 document.getElementById("tb").innerHTML=h;
 document.getElementById("cnt").textContent=arr.length+" / "+D.length+" 条";
