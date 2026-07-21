@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -7,42 +7,41 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:#f0f4f8;color:#333}
-.hd{background:linear-gradient(135deg,#1a5276,#2980b9);color:#fff;padding:18px 24px;text-align:center}
-.hd h1{font-size:22px;margin-bottom:2px}
-.hd p{font-size:12px;opacity:.8}
-.wrap{max-width:100%;margin:0 auto;padding:12px}
-.stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
-.sc{background:#fff;border-radius:8px;padding:12px 16px;flex:1;min-width:100px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.1)}
-.sc .n{font-size:26px;font-weight:700;color:#1a5276}
-.sc .l{font-size:11px;color:#888;margin-top:2px}
-.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+.hd{background:linear-gradient(135deg,#1a5276,#2980b9);color:#fff;padding:16px 20px;text-align:center}
+.hd h1{font-size:20px}
+.hd p{font-size:12px;opacity:.8;margin-top:2px}
+.wrap{max-width:100%;padding:10px}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.sc{background:#fff;border-radius:6px;padding:10px 14px;flex:1;min-width:90px;text-align:center;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.sc .n{font-size:22px;font-weight:700;color:#1a5276}
+.sc .l{font-size:11px;color:#888}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;align-items:center}
 .bar input,.bar select{font-size:13px;padding:6px 10px;border:1px solid #ccc;border-radius:6px;outline:none}
 .bar input:focus,.bar select:focus{border-color:#2980b9}
-.bar input{flex:1;min-width:160px}
-.twrap{background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.1);overflow:auto}
-table{width:100%;border-collapse:collapse;font-size:12px;min-width:1300px;table-layout:fixed}
-th{background:#f7f9fc;padding:8px 3px;text-align:center;border-bottom:2px solid #e0e0e0;font-weight:600;cursor:pointer;white-space:nowrap;user-select:none;font-size:12px}
+.bar input{flex:1;min-width:150px}
+.twrap{background:#fff;border-radius:6px;box-shadow:0 1px 2px rgba(0,0,0,.08);overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:12px;min-width:1000px;table-layout:fixed}
+th{background:#f7f9fc;padding:8px 2px;text-align:center!important;border-bottom:2px solid #e0e0e0;font-weight:600;cursor:pointer;white-space:nowrap;user-select:none;font-size:11px}
 th:hover{background:#eef2f7}
-td{padding:6px 3px;border-bottom:1px solid #f0f0f0;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+td{padding:7px 2px;border-bottom:1px solid #f0f0f0;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 tr:hover{background:#f8fafc}
-.tag{display:inline-block;padding:1px 6px;border-radius:8px;font-size:10px;font-weight:600}
+.tag{display:inline-block;padding:1px 5px;border-radius:8px;font-size:10px;font-weight:600}
 .tn{background:#d4efdf;color:#1e8449}
 .td{background:#fdebd0;color:#b9770e}
 .te{background:#d6eaf8;color:#2471a3}
-.info{font-size:11px;color:#888;padding:6px 10px}
-.ft{text-align:center;padding:16px;font-size:11px;color:#aaa}
+.info{font-size:11px;color:#888;padding:4px 8px}
+.ft{text-align:center;padding:14px;font-size:11px;color:#aaa}
 .c-id{width:40px}
-.c-region{width:90px}
-.c-classify{width:72px}
-.c-type{width:50px}
-.c-name{width:50%;text-align:left!important}
-.c-content{width:170px;text-align:left!important}
-.c-invest{width:80px}
-.c-location{width:75px;text-align:left!important}
-.c-org{width:85px;text-align:left!important}
-.c-nature{width:60px}
-.c-start{width:70px}
-.td-left{text-align:left!important}
+.c-region{width:85px}
+.c-classify{width:68px}
+.c-type{width:46px}
+.c-name{width:auto}
+.c-content{width:auto}
+.c-invest{width:72px}
+.c-location{width:70px}
+.c-org{width:78px}
+.c-nature{width:56px}
+.c-start{width:65px}
 </style>
 </head>
 <body>
@@ -85,8 +84,8 @@ var D=JSON.parse(document.getElementById("data").textContent);
 var rs={},cs={},ts={};
 D.forEach(function(d){rs[d["地州"]]=1;cs[d["分类号"]]=1;ts[d["项目类型"]]=1});
 var rEl=document.getElementById("rg"),cEl=document.getElementById("ct"),tEl=document.getElementById("tp");
-Object.keys(rs).sort().forEach(function(k){var o=document.createElement("option");o.value=k;o.textContent=k;rEl.appendChild(o)});
-Object.keys(cs).sort().forEach(function(k){var o=document.createElement("option");o.value=k;o.textContent=k;cEl.appendChild(o)});
+Object.keys(rs).sort().forEach(function(k){if(k!=="-"){var o=document.createElement("option");o.value=k;o.textContent=k;rEl.appendChild(o)}});
+Object.keys(cs).sort().forEach(function(k){if(k!=="-"){var o=document.createElement("option");o.value=k;o.textContent=k;cEl.appendChild(o)}});
 Object.keys(ts).sort().forEach(function(k){if(k&&k!=="-"){var o=document.createElement("option");o.value=k;o.textContent=k;tEl.appendChild(o)}});
 st();f();
 })();
@@ -118,15 +117,15 @@ return true;
 arr.sort(function(a,b){var va=a[sc]||"",vb=b[sc]||"";var na=parseFloat(va),nb=parseFloat(vb);if(!isNaN(na)&&!isNaN(nb))return(na-nb)*sd;return String(va).localeCompare(String(vb))*sd});
 var h="";
 arr.forEach(function(d,i){
-var c=d["分类号"]||"",tag=c==="纯新建"?"<span class=\"tag tn\">纯新建</span>":c==="可研/设计阶段"?"<span class=\"tag td\">可研/设计</span>":"<span class=\"tag te\">初步阶段</span>";
-var inv=d["总投资_万元"]||"";if(inv&&inv!=="-"){var n=parseFloat(inv);inv=!isNaN(n)&&n>0?n>=10000?(n/10000).toFixed(1)+"亿":n.toFixed(0)+"万":"-"}else inv="-";
-var stt=d["计划开工时间"]||"-";if(stt!=="-")stt=stt.replace(/ 00:00:00/g,"");
-h+="<tr><td>"+(i+1)+"</td><td>"+he(d["地州"])+"</td><td>"+tag+"</td><td>"+he(d["项目类型"])+"</td><td class=\"td-left\" title=\""+he(d["项目名称"])+"\">"+he(d["项目名称"])+"</td><td class=\"td-left\" title=\""+he(d["建设内容及规模"])+"\">"+he((d["建设内容及规模"]||"-").substring(0,40))+"</td><td>"+inv+"</td><td class=\"td-left\" title=\""+he(d["建设地点"])+"\">"+he(d["建设地点"])+"</td><td class=\"td-left\" title=\""+he(d["项目法人"])+"\">"+he((d["项目法人"]||"-").substring(0,22))+"</td><td>"+he(d["项目单位性质"])+"</td><td>"+he(stt)+"</td></tr>";
+var c=d["分类号"]||"",tag=c==="纯新建"?"<span class=tag tn>纯新建</span>":c==="可研/设计阶段"?"<span class=tag td>可研/设计</span>":"<span class=tag te>初步阶段</span>";
+var inv=d["总投资_万元"]||"-";if(inv!=="-"){var n=parseFloat(inv);inv=!isNaN(n)&&n>0?n>=10000?(n/10000).toFixed(1)+"亿":n.toFixed(0)+"万":"-"}
+var stt=d["计划开工时间"]||"-";if(stt!=="-")stt=stt.replace(" 00:00:00","");
+function esc(s){s=String(s||"-");return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+h+="<tr><td>"+(i+1)+"</td><td>"+esc(d["地州"])+"</td><td>"+tag+"</td><td>"+esc(d["项目类型"])+"</td><td>"+esc(d["项目名称"])+"</td><td>"+esc((d["建设内容及规模"]||"-").substring(0,35))+"</td><td>"+inv+"</td><td>"+esc(d["建设地点"])+"</td><td>"+esc((d["项目法人"]||"-").substring(0,18))+"</td><td>"+esc(d["项目单位性质"])+"</td><td>"+esc(stt)+"</td></tr>";
 });
 document.getElementById("tb").innerHTML=h;
-document.getElementById("cnt").textContent="显示 "+arr.length+" / "+D.length+" 条";
+document.getElementById("cnt").textContent=arr.length+" / "+D.length+" 条";
 }
-function he(s){if(!s)return"-";s=String(s);return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
 </script>
 </body>
 </html>
