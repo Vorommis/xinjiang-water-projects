@@ -19,7 +19,7 @@ DB = 'xinjiang_water_projects.db'
 CAT_STYLE = {
     '可研/设计阶段': ('tag td', '可研/设计'),
     '初步阶段': ('tag te', '初步阶段'),
-    '纯新建': ('tag tn', '纯新建'),
+    '早期': ('tag tn', '早期'),
 }
 # 表格列顺序：(数据库字段, 是否用 title 原值, 显示处理)
 COLS = [
@@ -123,7 +123,7 @@ def main():
 
     # ---- 2) 统计数字 ----
     n_all = len(recs)
-    n_pure = sum(1 for r in recs if str(r.get('分类号')) == '纯新建')
+    n_pure = sum(1 for r in recs if str(r.get('分类号')) == '早期')
     n_ky = sum(1 for r in recs if str(r.get('分类号')) == '可研/设计阶段')
     n_cb = sum(1 for r in recs if str(r.get('分类号')) == '初步阶段')
     n_region = len({str(r.get('地州')) for r in recs if r.get('地州')})
@@ -134,7 +134,8 @@ def main():
                        f'<div class="n">{value}</div><div class="l">{label}</div>', plain)
 
     set_stat('总项目', n_all)
-    set_stat('纯新建', n_pure)
+    plain = plain.replace('<div class="l">纯新建</div>', '<div class="l">早期</div>')
+    set_stat('早期', n_pure)
     set_stat('可研/设计', n_ky)
     set_stat('初步阶段', n_cb)
     set_stat('地州/市', n_region)
@@ -148,7 +149,7 @@ def main():
         mm = re.search(r'(<select id="' + select_id + r'"[^>]*>)(.*?)(</select>)', plain, re.S)
         pairs = re.findall(r'<option value="([^"]*)">([^<]*)</option>', mm.group(2))
         label = {v: lab for v, lab in pairs}
-        keep = [v for v, _ in pairs]
+        keep = [v for v, _ in pairs if v == '' or v in values]
         for v in values:
             if v and v not in keep:
                 keep.append(v)
@@ -169,12 +170,19 @@ def main():
     rebuild_select('rg', regions)
     rebuild_select('tp', types)
 
+    cats = []
+    for r in recs:
+        c_ = str(r.get('分类号') or '').strip()
+        if c_ and c_ not in cats:
+            cats.append(c_)
+    rebuild_select('ct', cats)
+
     # ---- 4) 重新加密写回 ----
     new_ed = enc(plain, PASSWORD)
     out = re.sub(r'var ED="[A-Za-z0-9+/=]+"', f'var ED="{new_ed}"', src)
     open(INDEX, 'w', encoding='utf-8').write(out)
     print(f'已写回 {INDEX}  ({os.path.getsize(INDEX):,} bytes)')
-    print(f'统计: 总{n_all} 纯新建{n_pure} 可研/设计{n_ky} 初步{n_cb} 地州{n_region}')
+    print(f'统计: 总{n_all} 早期{n_pure} 可研/设计{n_ky} 初步{n_cb} 地州{n_region}')
 
     # ---- 5) 自检 ----
     chk = dec(open(INDEX, encoding='utf-8').read(), PASSWORD)

@@ -49,8 +49,8 @@ def stage_to_cat(s):
     s = str(s or '')
     if '初步' in s:
         return '初步阶段'
-    if '纯新建' in s:
-        return '纯新建'
+    if '早期' in s or '纯新建' in s:
+        return '早期'
     return '可研/设计阶段'
 
 
