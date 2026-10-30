@@ -1,0 +1,18 @@
+# ── 明文数据文件：含联系人姓名、手机号等敏感信息 ──
+# 仓库是公开的，这些文件不要提交（看板 index.html 已加密，数据在内）
+xinjiang_water_projects.db
+xinjiang_water_projects.db-journal
+xinjiang_water_projects.bak.db
+xinjiang_water_projects.json
+xinjiang_water_projects.csv
+*.bak.db
+
+# 用户提供的原始资料（含明文库导出）
+信息库简化.zip
+新疆水利项目统一信息库.xlsx
+新疆水利项目统一信息库(更新版).xlsx
+~$*.xlsx
+
+# Python
+__pycache__/
+*.pyc
