@@ -40,20 +40,41 @@ def sogou(q, tries=3):
     raise RuntimeError(last)
 
 
+
+# ── 片区/切片识别 ────────────────────────────────────────────
+# 区域大型项目（总体）与其片区切片是两条独立记录，切片中标不动父项目。
+SLICE_HINT = re.compile(r"片区|灌片|分期|一期|二期|三期|标段|县|乡|镇|团场")
+
+
+def _parens(s):
+    return re.findall(r"[（(]([^）)]{1,20})[）)]", s)
+
+
+def slice_groups(name, title):
+    """返回标题中"库内项目名里没有"的括号内容；其中有切片特征的即视为切片公告"""
+    have = set(_parens(normtxt(name)))
+    extra = [g for g in _parens(normtxt(title)) if g not in have]
+    return [g for g in extra if SLICE_HINT.search(g)]
+
+
 def judge(name, items):
     n = normtxt(name)
-    strict, near = [], []
+    strict, near, sliced = [], [], []
     core = re.sub(r"(新疆|维吾尔自治区|阿克苏地区|和田地区|喀什地区|阿勒泰地区|昌吉州|巴州|塔城地区|乌鲁木齐市|地区|工程|项目|建设|续建|配套|与|及)", "", n)
     core = core[:10]
     for it in items:
         t = it["title"]; tn = normtxt(t)
         if not WORK.search(t) or not BID.search(t): continue
         if n and n in tn:
+            sg = slice_groups(name, t)
+            if sg:
+                sliced.append({"标题": t, "URL": it["url"], "切片": sg})
+                continue
             strict.append({"标题": t, "URL": it["url"],
                            "判定": "已中标/定标" if re.search(r"中标|成交|结果|候选人|定标", t) else "招标中"})
         elif len(core) >= 5 and core in tn:
             near.append({"标题": t, "URL": it["url"]})
-    return strict, near
+    return strict, near, sliced
 
 
 def main():
@@ -81,10 +102,10 @@ def main():
         except Exception as e:
             print("[%d/%d]  %-32s 检索失败 %s" % (i, len(todo), p["项目名称"][:30], e), flush=True)
             time.sleep(10); continue
-        strict, near = judge(p["项目名称"], items)
+        strict, near, sliced = judge(p["项目名称"], items)
         f.write(json.dumps({"row_id": p["row_id"], "项目名称": p["项目名称"], "地州": p["地州"],
                             "总投资": p["总投资_万元"], "结果数": len(items),
-                            "严格命中": strict, "近似命中": near}, ensure_ascii=False) + "\n")
+                            "严格命中": strict, "近似命中": near, "切片公告": sliced}, ensure_ascii=False) + "\n")
         f.flush()
         if strict:
             ns += 1
