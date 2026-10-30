@@ -94,11 +94,13 @@ def build_row(rec):
             display = txt if len(txt) <= 38 else txt[:38] + '...'
             parts.append(f'<td title="{esc(txt)}">{esc(display)}</td>')
         else:
-            parts.append(f'<td title="{esc(txt)}">{esc(txt)}</td>')
+            cls = ' class="pin"' if (field == '项目名称' and rec.get('重点跟踪')) else ''
+            parts.append(f'<td{cls} title="{esc(txt)}">{esc(txt)}</td>')
     region = esc(str(rec.get('地州') or ''))
     cat = esc(str(rec.get('分类号') or ''))
     ptype = esc(str(rec.get('项目类型') or ''))
-    return (f'<tr data-region="{region}" data-cat="{cat}" data-ptype="{ptype}">'
+    focus = 1 if rec.get('重点跟踪') else 0
+    return (f'<tr data-region="{region}" data-cat="{cat}" data-ptype="{ptype}" data-focus="{focus}">'
             + ''.join(parts) + '</tr>')
 
 
@@ -176,6 +178,23 @@ def main():
         if c_ and c_ not in cats:
             cats.append(c_)
     rebuild_select('ct', cats)
+
+    # ---- 3c) 隐藏属性「重点跟踪」：标红样式 + 筛选框（不新增表格列）----
+    if '.pin{' not in plain:
+        plain = plain.replace('</style>', 'td.pin{color:#e74c3c!important;font-weight:600}\n</style>', 1)
+    if 'id="fk"' not in plain:
+        mm = re.search(r'<select id="tp"[^>]*>.*?</select>', plain, re.S)
+        if mm:
+            sel = ('<select id="fk" onchange="f()"><option value="">全部项目</option>'
+                   '<option value="1">★重点跟踪</option></select>')
+            plain = plain[:mm.end()] + sel + plain[mm.end():]
+    if 'var fk=' not in plain:
+        plain = plain.replace('var tp=document.getElementById("tp").value;',
+                              'var tp=document.getElementById("tp").value;'
+                              'var fk=document.getElementById("fk").value;')
+        plain = plain.replace('if(tp&&tr.dataset.ptype!==tp)show=false;',
+                              'if(tp&&tr.dataset.ptype!==tp)show=false;'
+                              'if(fk&&tr.dataset.focus!==fk)show=false;')
 
     # ---- 4) 重新加密写回 ----
     new_ed = enc(plain, PASSWORD)
